@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MD.AI - Assistente Médico</title>
+    <title>ClinicalMind - Assistente Médico</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <h1 class="chat-title">MD.AI</h1>
-        <div id="chat-box" class="chat-box"></div>
+    <div class="container">
+        <header>
+            <h1>🩺 ClinicalMind</h1>
+        </header>
+
+        <div class="chat-box" id="chat-box">
+            <div class="message bot">Olá! Sou o **ClinicalMind**. Como posso ajudar?</div>
+        </div>
+
         <form id="ai-form" class="chat-form">
-            <input type="text" id="question" name="question" placeholder="Digite sua pergunta..." required>
-            <button type="submit">Enviar</button>
+            <input type="text" id="question" placeholder="Digite sua pergunta..." required>
+            <button type="submit">➤</button>
         </form>
     </div>
 
     <script>
         document.getElementById("ai-form").addEventListener("submit", async function(event) {
             event.preventDefault();
-            
+            const question = document.getElementById("question").value;
             const chatBox = document.getElementById("chat-box");
-            const questionInput = document.getElementById("question");
-            const question = questionInput.value;
-            
+
             chatBox.innerHTML += `<div class="message user">${question}</div>`;
-            questionInput.value = "";
-            chatBox.innerHTML += `<div class="message bot loading">Digitando...</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
 
             const response = await fetch("https://tiagocarnin.app.n8n.cloud/webhook/MD-AI", {
                 method: "POST",
@@ -36,12 +37,10 @@
             });
 
             const data = await response.json();
-            document.querySelector(".message.bot.loading").remove();
-            
-            // Adicionar espaçamento entre parágrafos na resposta do bot
-            const formattedResponse = data.output.replace(/\n/g, "<br><br>");
-            chatBox.innerHTML += `<div class="message bot">${formattedResponse}</div>`;
+            chatBox.innerHTML += `<div class="message bot">${data.output.replace(/\n/g, "<br>")}</div>`;
+
             chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById("question").value = "";
         });
     </script>
 </body>
