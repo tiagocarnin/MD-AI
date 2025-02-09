@@ -10,6 +10,7 @@
     margin-bottom: 10px;
 }
 
+/* Animação da barra de loading */
 @keyframes loading {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
