@@ -12,45 +12,21 @@
     </header>
     
     <div class="chat-container">
-        <div class="loading-bar" style="display: none;"></div> <!-- Barra de Loading -->
         <div class="chat-box">
             <div class="message bot">
                 <p>Olá! Sou o assistente médico baseado em evidências científicas. Como posso te ajudar hoje?</p>
             </div>
         </div>
+        
+        <!-- Barra de Loading -->
+        <div class="loading-bar"></div>
+
         <form class="chat-form">
             <input type="text" placeholder="Digite sua pergunta..." required>
             <button type="submit">➤</button>
         </form>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".chat-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                let input = document.querySelector(".chat-form input");
-                let message = input.value;
-                let chatBox = document.querySelector(".chat-box");
-                let loadingBar = document.querySelector(".loading-bar");
-
-                if (message.trim() !== "") {
-                    let userMessage = `<div class="message user"><p>${message}</p></div>`;
-                    chatBox.innerHTML += userMessage;
-                    input.value = "";
-
-                    // Exibir barra de loading
-                    loadingBar.style.display = "block";
-
-                    // Simular um tempo de resposta antes de ocultar o loading e exibir resposta do bot
-                    setTimeout(() => {
-                        loadingBar.style.display = "none";
-                        let botMessage = `<div class="message bot"><p>Processando sua pergunta...</p></div>`;
-                        chatBox.innerHTML += botMessage;
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    }, 2000);
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script> <!-- Arquivo JS separado -->
 </body>
 </html>
